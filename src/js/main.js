@@ -112,12 +112,30 @@ document.addEventListener("contextmenu", (e) => {
   contextMenu.style.left = `${x}px`;
   contextMenu.style.top = `${y}px`;
   contextMenu.style.visibility = "visible";
-
-  document.body.style.overflow = "hidden";
 });
 
 document.addEventListener("click", () => {
   contextMenu.style.visibility = "hidden";
+});
 
+function preventTouchScroll(e) {
+  e.preventDefault();
+}
+
+document.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+
+  // نمایش منو و تنظیم موقعیت ...
+  contextMenu.style.visibility = "visible";
+  // غیر فعال کردن اسکرول صفحه
+  document.body.style.overflow = "hidden";
+  document.addEventListener("touchmove", preventTouchScroll, {
+    passive: false,
+  });
+});
+
+document.addEventListener("click", () => {
+  contextMenu.style.visibility = "hidden";
   document.body.style.overflow = "";
+  document.removeEventListener("touchmove", preventTouchScroll);
 });
