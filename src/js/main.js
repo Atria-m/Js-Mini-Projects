@@ -93,7 +93,7 @@ function disableScroll() {
   document.body.style.top = `-${scrollY}px`;
   document.body.style.left = "0";
   document.body.style.right = "0";
-  document.body.style.width = "100%"; // اضافه کردن width کامل برای جلوگیری از جابجایی عرض
+  document.body.style.width = "100%";
 }
 
 function enableScroll() {
@@ -136,7 +136,14 @@ document.addEventListener("contextmenu", (e) => {
   disableScroll();
 });
 
-document.addEventListener("click", () => {
+document.addEventListener("click", (e) => {
+  if (
+    contextMenu.contains(e.target) ||
+    subMenu.contains(e.target)
+  ) {
+    return;
+  }
+  
   contextMenu.style.visibility = "hidden";
   enableScroll();
 });
