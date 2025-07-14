@@ -112,8 +112,12 @@ document.addEventListener("contextmenu", (e) => {
   contextMenu.style.left = `${x}px`;
   contextMenu.style.top = `${y}px`;
   contextMenu.style.visibility = "visible";
+
+  document.body.style.overflow = "hidden";
 });
 
 document.addEventListener("click", () => {
   contextMenu.style.visibility = "hidden";
+
+  document.body.style.overflow = "";
 });
