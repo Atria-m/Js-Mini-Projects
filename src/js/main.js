@@ -85,6 +85,26 @@ setTheme(localStorage.getItem("theme") || "light");
 const contextMenu = document.querySelector(".container-right-click");
 const subMenu = document.querySelector(".share-menu");
 
+let scrollY = 0;
+
+function disableScroll() {
+  scrollY = window.scrollY || document.documentElement.scrollTop;
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.width = "100%"; // اضافه کردن width کامل برای جلوگیری از جابجایی عرض
+}
+
+function enableScroll() {
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+  window.scrollTo(0, scrollY);
+}
+
 document.addEventListener("contextmenu", (e) => {
   e.preventDefault();
 
@@ -112,30 +132,12 @@ document.addEventListener("contextmenu", (e) => {
   contextMenu.style.left = `${x}px`;
   contextMenu.style.top = `${y}px`;
   contextMenu.style.visibility = "visible";
+
+  disableScroll();
 });
 
 document.addEventListener("click", () => {
   contextMenu.style.visibility = "hidden";
+  enableScroll();
 });
 
-function preventTouchScroll(e) {
-  e.preventDefault();
-}
-
-document.addEventListener("contextmenu", (e) => {
-  e.preventDefault();
-
-  // نمایش منو و تنظیم موقعیت ...
-  contextMenu.style.visibility = "visible";
-  // غیر فعال کردن اسکرول صفحه
-  document.body.style.overflow = "hidden";
-  document.addEventListener("touchmove", preventTouchScroll, {
-    passive: false,
-  });
-});
-
-document.addEventListener("click", () => {
-  contextMenu.style.visibility = "hidden";
-  document.body.style.overflow = "";
-  document.removeEventListener("touchmove", preventTouchScroll);
-});
