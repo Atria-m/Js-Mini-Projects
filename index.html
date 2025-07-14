@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Js Mini Projects</title>
+    <link rel="stylesheet" href="./src/tailwind/main.css" />
+    <link rel="stylesheet" href="./src/css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body
+    class="bg-lightbg dark:bg-darkbg text-lighttext dark:text-gray-100 transition-colors duration-500 select-none overflow-hidden"
+  >
+    <!-- Header -->
+    <header
+      class="w-full h-20 flex items-center justify-between px-6 shadow-md bg-lightsurface dark:bg-darksurface transition-colors duration-500"
+    >
+      <div class="button-container">
+        <button
+          id="openBtn"
+          class="bg-primaryLight dark:bg-accent text-white py-2 px-4 rounded-lg shadow-md hover:bg-primaryLightHover dark:hover:bg-cyan-500 transition-all duration-300"
+        >
+          باز کردن مدال
+        </button>
+      </div>
+
+      <!-- Modal Container -->
+      <div
+        class="modal-container fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-sm"
+      >
+        <!-- Modal Content -->
+        <div
+          class="modal-content absolute top-1/2 left-1/2 w-[90%] max-w-md bg-lightsurface dark:bg-darksurface text-lighttext dark:text-gray-100 rounded-xl shadow-2xl transform -translate-x-1/2 -translate-y-1/2 transition-colors duration-500"
+        >
+          <!-- Modal Header -->
+          <div
+            class="modal-header bg-primaryLight dark:bg-accent text-white py-3 px-5 flex items-center justify-between rounded-t-xl"
+          >
+            <h2 class="text-base font-semibold">عنوان مدال</h2>
+            <i
+              class="fa-solid fa-xmark closeBtn text-white cursor-pointer hover:text-[#2b2b2b] transition-colors duration-300"
+            ></i>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body px-6 py-4 text-sm leading-relaxed space-y-4">
+            <h3
+              class="text-base font-semibold mb-2 text-primaryLight dark:text-cyan-400"
+            >
+              معرفی مدال تمرین
+            </h3>
+            <p>
+              این مدال بخشی از تمرین‌های عملی <strong>JavaScript</strong> است که
+              به شما کمک می‌کند کار با رویدادها، مدال‌ها و مدیریت حالت‌ها آشنا
+              شوید.
+            </p>
+
+            <h4
+              class="text-sm font-semibold text-secondaryLight dark:text-cyan-300 mt-4"
+            >
+              اهداف پروژه
+            </h4>
+            <ul class="list-disc list-inside text-gray-700 dark:text-gray-300">
+              <li>تسلط بر مفاهیم پایه و پیشرفته جاوااسکریپت</li>
+              <li>تمرکز بر تعامل کاربری و طراحی واکنش‌گرا</li>
+              <li>پیاده‌سازی تجربه کاربری روان و زیبا</li>
+            </ul>
+
+            <h4
+              class="text-sm font-semibold text-secondaryLight dark:text-cyan-300 mt-4"
+            >
+              قابلیت‌های اضافه
+            </h4>
+            <p>
+              علاوه بر این، در این پروژه امکانات زیر نیز پیاده‌سازی شده است:
+            </p>
+            <ul class="list-disc list-inside text-gray-700 dark:text-gray-300">
+              <li>قابلیت کپی کردن متن با یک کلیک</li>
+              <li>منوی راست کلیک سفارشی برای تجربه کاربری بهتر</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toggle Theme Button -->
+      <button
+        id="toggle-theme"
+        class="w-10 h-10 rounded-full bg-primaryLight dark:bg-accent text-white flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-lg hover:bg-primaryLightHover dark:hover:bg-cyan-500"
+        title="تغییر تم"
+      >
+        <svg
+          id="theme-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        ></svg>
+      </button>
+    </header>
+
+    <!-- Main -->
+    <main
+      class="flex justify-center items-center min-h-[calc(100vh-80px)] px-4"
+    >
+      <div
+        class="w-full max-w-md bg-lightsurface dark:bg-darksurface rounded-2xl p-6 shadow-xl transition-all duration-500"
+      >
+        <textarea
+          id="text-input"
+          class="w-full h-40 p-3 rounded-lg border border-gray-300 dark:border-gray-600 resize-none outline-none focus:ring-2 focus:ring-primaryLight dark:focus:ring-accent bg-white dark:bg-gray-800 text-sm transition-all duration-300"
+          placeholder="یه چیزی تایپ کن ..."
+        ></textarea>
+        <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">
+          این بخش برای تمرین نوشتن متن و آزمایش عملکرد کپی در Js طراحی شده است.
+        </p>
+
+        <button
+          id="copy-btn"
+          class="mt-4 w-full bg-primaryLight text-white py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+        >
+          کپی کن
+        </button>
+
+        <p id="copy-msg" class="text-green-500 text-sm mt-2 hidden">
+          متن کپی شد!
+        </p>
+      </div>
+    </main>
+
+    <!-- Custom Right Click Context Menu -->
+    <div
+      class="container-right-click w-[300px] rounded-[10px] bg-white dark:bg-darksurface text-lighttext dark:text-white shadow-md dark:shadow-lg transition-all duration-200 py-[10px] absolute"
+      dir="ltr"
+    >
+      <div class="content-right-click">
+        <ul class="menu-right-click list-none px-[10px]">
+          <li
+            class="menu-right-click-item py-[5px] px-[10px] cursor-pointer hover:bg-[#f2f2f2] dark:hover:bg-[#475569] rounded-[5px] transition-colors duration-200"
+          >
+            <i
+              class="fa-solid fa-eye pr-[10px] text-lighttext dark:text-white"
+            ></i>
+            <span>Preview</span>
+          </li>
+
+          <li
+            class="menu-right-click-item share py-[5px] px-[10px] cursor-pointer hover:bg-[#f2f2f2] dark:hover:bg-[#475569] rounded-[5px] relative flex justify-between items-center transition-colors duration-200"
+          >
+            <div class="flex items-center">
+              <i
+                class="fa-solid fa-share pr-[10px] text-lighttext dark:text-white"
+              ></i>
+              <span>Share</span>
+            </div>
+            <i
+              class="fa-solid fa-angle-right text-lighttext dark:text-white"
+            ></i>
+
+            <ul
+              class="share-menu rounded-[10px] py-[10px] px-[5px] absolute left-[280px] w-[170px] bg-white dark:bg-darksurface shadow-md dark:shadow-lg z-10 transition-all duration-200"
+            >
+              <li
+                class="share-menu-item py-[5px] px-[10px] cursor-pointer hover:bg-[#f2f2f2] dark:hover:bg-[#475569] rounded-[5px] transition-colors duration-200"
+              >
+                <i
+                  class="fa-brands fa-instagram pr-[8px] text-lighttext dark:text-white"
+                ></i>
+                <span>instagram</span>
+              </li>
+              <li
+                class="share-menu-item py-[5px] px-[10px] cursor-pointer hover:bg-[#f2f2f2] dark:hover:bg-[#475569] rounded-[5px] transition-colors duration-200"
+              >
+                <i
+                  class="fa-brands fa-twitter pr-[8px] text-lighttext dark:text-white"
+                ></i>
+                <span>twitter</span>
+              </li>
+              <li
+                class="share-menu-item py-[5px] px-[10px] cursor-pointer hover:bg-[#f2f2f2] dark:hover:bg-[#475569] rounded-[5px] transition-colors duration-200"
+              >
+                <i
+                  class="fa-brands fa-telegram pr-[8px] text-lighttext dark:text-white"
+                ></i>
+                <span>telegram</span>
+              </li>
+            </ul>
+          </li>
+
+          <li
+            class="menu-right-click-item py-[5px] px-[10px] cursor-pointer hover:bg-[#f2f2f2] dark:hover:bg-[#475569] rounded-[5px] transition-colors duration-200"
+          >
+            <i
+              class="fa-regular fa-copy pr-[10px] text-lighttext dark:text-white"
+            ></i>
+            <span>Copy Link</span>
+          </li>
+
+          <li
+            class="menu-right-click-item py-[5px] px-[10px] cursor-pointer hover:bg-[#f2f2f2] dark:hover:bg-[#475569] rounded-[5px] transition-colors duration-200"
+          >
+            <i
+              class="fa-solid fa-pen-to-square pr-[10px] text-lighttext dark:text-white"
+            ></i>
+            <span>Edit</span>
+          </li>
+
+          <li
+            class="menu-right-click-item py-[5px] px-[10px] cursor-pointer hover:bg-[#f2f2f2] dark:hover:bg-[#475569] rounded-[5px] transition-colors duration-200"
+          >
+            <i
+              class="fa-solid fa-trash pr-[10px] text-lighttext dark:text-white"
+            ></i>
+            <span>Delete</span>
+          </li>
+
+          <div
+            class="setting border-t border-[#ccc] dark:border-gray-600 my-[10px] pt-[10px]"
+          >
+            <li
+              class="menu-right-click-item py-[5px] px-[10px] cursor-pointer hover:bg-[#f2f2f2] dark:hover:bg-[#475569] rounded-[5px] transition-colors duration-200"
+            >
+              <i
+                class="fa-solid fa-gear pr-[10px] text-lighttext dark:text-white"
+              ></i>
+              <span>Setting</span>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+
+    <script src="./src/js/main.js"></script>
+  </body>
+</html>
